@@ -2,7 +2,24 @@ class Solution {
     public int singleNonDuplicate(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
-        int result = 0;
+        
+        // Edge Conditions 
+        if(nums.length == 0)
+        {
+            return -1;
+        }     
+        if(right == 0)
+        {
+            return nums[right];
+        }
+        else if (nums[0] != nums[1])
+        {
+            return nums[0];
+        }
+        else if(nums[right] != nums[right-1])
+        {
+            return nums[right];
+        }
         
         while(left<=right)
         {
