@@ -3,6 +3,7 @@ class Solution {
         int rows = matrix.length;
         int cols = matrix[0].length;
         
+        //Linear search to find the row in which the target might exist
         int rowtosearch = 0;
         for(int i=0;i<rows;i++){
             if(matrix[i][0] == target || matrix[i][cols-1]==target){
@@ -14,6 +15,7 @@ class Solution {
             }
         }
         
+        //Binary search to find the target in the row that might exist
         int left = 0;
         int right = matrix[0].length-1;
         int mid =  0 ;
