@@ -2,32 +2,39 @@ class Solution {
     public String minRemoveToMakeValid(String s) {
         
         if (s == null || s.length() == 0) return s;       
-        int open = 0, closed = 0;       
-        for (int i = 0; i < s.length(); ++i) {
-            if(s.charAt(i) == ')') closed++;
-        }
-        StringBuilder result = new StringBuilder();
-    for (int i = 0; i < s.length(); ++i) {
-        if (s.charAt(i) == '(') {
-            if (closed > 0) {
-                open++;     
-                closed--;
-                
-                result.append(s.charAt(i));    
+        
+        Set<Integer> indexes = new HashSet<Integer>();
+        
+        Stack<Integer> stack = new Stack<Integer>();
+        
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i) == '('){
+                stack.push(i);
             }
-        } else if (s.charAt(i) == ')') {
-            if (open > 0) {
-                open--;
-                
-                result.append(s.charAt(i));
-            } else {
-                closed--;   
+            if(s.charAt(i) == ')'){
+                if(stack.isEmpty()){
+                    indexes.add(i);
+                }
+                else{
+                    stack.pop();
+                }
             }
-        } else {
-            result.append(s.charAt(i));  
         }
-    }
-    return result.toString();
+        
+        while(!stack.isEmpty()){
+            indexes.add(stack.pop());
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i =0 ; i< s.length();i++){
+            if(!indexes.contains(i)){
+                sb.append(s.charAt(i));
+            }
+        }
+        
+        return sb.toString();
+        
         
     }
 }
