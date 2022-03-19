@@ -19,6 +19,8 @@ class FreqStack {
 
     public FreqStack() {
         
+       //This priority queue will sort the elements based on frequency if the frequency is equal
+       //Then the element with latest index will be on the top
        pq = new PriorityQueue<>((o1,o2) ->{
             if(o1.frequency != o2.frequency){
                 return o2.frequency - o1.frequency;
