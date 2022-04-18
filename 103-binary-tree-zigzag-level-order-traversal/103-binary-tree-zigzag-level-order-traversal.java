@@ -20,7 +20,7 @@ class Solution {
         if(root == null) return ans;
         q.offer(root);
         List<Integer> list;
-        int c = -1;
+        int c = 0;
         while(!q.isEmpty()){
             int n = q.size();
             list = new ArrayList();
@@ -30,13 +30,13 @@ class Solution {
                 if(cur.right != null) q.offer(cur.right);
                 list.add(cur.val);
             }
-            c++;
             if(c % 2 == 0){
                 ans.add(list);
             }else{
                 Collections.reverse(list);
                 ans.add(list);
             }
+            c++;
         }
         return ans;
         
