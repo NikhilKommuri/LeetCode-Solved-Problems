@@ -1,40 +1,50 @@
 class BrowserHistory {
     
-    Stack<String> backStack;
-    Stack<String> forwardStack;
-    String HomePage;
+ Stack<String> browserStackBackward=null;
+    Stack<String> browserStackForward=null;
+    String homepageUrl=null;
+
     public BrowserHistory(String homepage) {
-        HomePage = homepage;
-        backStack = new Stack<String>();
-        backStack.push(homepage);
-        forwardStack = new Stack<String>();
+        browserStackBackward = new Stack<>();
+        browserStackForward = new Stack<>();
+        homepageUrl=homepage;
+        
     }
     
     public void visit(String url) {
-        backStack.push(url);
-        forwardStack = new Stack<String>();
+        browserStackBackward.push(url);
+        browserStackForward=new Stack<>();
     }
     
     public String back(int steps) {
-        int maxSteps = 0; //steps > backStack.size() ? backStack.size() : steps;
-        String backUrl = " ";    
-        while(maxSteps<steps && backStack.size()>1){
-            backUrl = backStack.pop();
-            forwardStack.push(backUrl);
-            maxSteps++;
+        int i=0;
+        while(!browserStackBackward.isEmpty() && i<steps){
+            String s = browserStackBackward.pop();
+            browserStackForward.push(s);
+            i++;
         }
-        return backStack.isEmpty() ? HomePage : backStack.peek();
+        if(!browserStackBackward.isEmpty()){
+            return browserStackBackward.peek();
+        }else{
+            return homepageUrl;
+        }
     }
     
     public String forward(int steps) {
-        int maxSteps = 0; //steps > forwardStack.size() ? forwardStack.size() : steps;
-         String backUrl = " "; 
-         while(maxSteps<steps && forwardStack.size()>0){
-            backUrl = forwardStack.pop();
-            backStack.push(backUrl);
-            maxSteps++;
+        int i=0;
+        
+        while(!browserStackForward.isEmpty() && i<steps){
+            String s = browserStackForward.pop();
+            browserStackBackward.push(s);
+            i++;
         }
-         return backStack.isEmpty()? HomePage : backStack.peek();
+        
+        if(!browserStackBackward.isEmpty()){
+            return browserStackBackward.peek();
+        }else{
+            return homepageUrl;
+        }
+        
     }
 }
 
