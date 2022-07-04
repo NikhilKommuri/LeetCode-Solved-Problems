@@ -6,10 +6,12 @@ class HitCounter {
     
     public void hit(int timestamp) {
         queue.add(timestamp);
+              while(!queue.isEmpty() && (timestamp - queue.peek()) >= 300){
+             queue.poll();
+            }
         }
     
     public int getHits(int timestamp) {
-        
       while(!queue.isEmpty() && (timestamp - queue.peek()) >= 300){
              queue.poll();
             }
